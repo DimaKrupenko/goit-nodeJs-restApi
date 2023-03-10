@@ -1,11 +1,13 @@
 const { Contacts } = require('../../models/index');
-const Joi = require('joi');
+const { joiSchema } = require('../../models/contact');
 
-const joiSchema = Joi.object({
-  name: Joi.string().required(),
-  email: Joi.string().required(),
-  phone: Joi.number().required(),
-});
+// const Joi = require('joi');
+
+// const joiSchema = Joi.object({
+//   name: Joi.string().required(),
+//   email: Joi.string().required(),
+//   phone: Joi.number().required(),
+// });
 
 const add = async (req, res, next) => {
   try {

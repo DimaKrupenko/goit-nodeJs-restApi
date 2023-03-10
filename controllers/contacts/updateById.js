@@ -1,12 +1,13 @@
 const { Contacts } = require('../../models/index');
+const { joiSchema } = require('../../models/contact');
 
-const Joi = require('joi');
+// const Joi = require('joi');
 
-const joiSchema = Joi.object({
-  name: Joi.string().required(),
-  email: Joi.string().required(),
-  phone: Joi.number().required(),
-});
+// const joiSchema = Joi.object({
+//   name: Joi.string().required(),
+//   email: Joi.string().required(),
+//   phone: Joi.number().required(),
+// });
 
 const updateById = async (req, res, next) => {
   try {
