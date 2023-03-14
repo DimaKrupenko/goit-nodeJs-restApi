@@ -1,5 +1,5 @@
 const { Contacts } = require('../../models/index');
-const { joiSchema } = require('../../models/contact');
+const { joiSchema } = require('../../models/contacts');
 
 // const Joi = require('joi');
 
