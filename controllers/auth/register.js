@@ -1,6 +1,7 @@
 const { Users } = require('../../models/users');
 const { Conflict } = require('http-errors');
 const { joiSchema } = require('../../models/users');
+const bcrypt = require('bcryptjs');
 
 const register = async (req, res, next) => {
   try {
@@ -16,7 +17,12 @@ const register = async (req, res, next) => {
     if (user) {
       throw new Conflict('Email in use');
     }
-    const result = await Users.create({ email, password, subscription });
+    const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+    const result = await Users.create({
+      email,
+      password: hashPassword,
+      subscription,
+    });
     console.log(result);
 
     res.status(201).json({
