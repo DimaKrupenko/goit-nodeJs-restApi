@@ -1,8 +1,18 @@
-const { User } = require('../../models/users');
+// const { User } = require('../../models/users');
 
 const getcurrent = async (res, req, next) => {
   try {
-    console.log(req.user);
+    const { email, subscription } = req.user;
+    res.json({
+      status: 'success',
+      code: 200,
+      data: {
+        user: {
+          email,
+          subscription,
+        },
+      },
+    });
   } catch (error) {
     next(error);
   }
