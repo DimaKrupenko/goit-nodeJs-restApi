@@ -1,4 +1,4 @@
-const { Users } = require('../../models/users');
+const { User } = require('../../models/users');
 const { joiSchema } = require('../../models/users');
 const { Unauthorized } = require('http-errors');
 const bcrypt = require('bcryptjs');
@@ -15,7 +15,7 @@ const login = async (req, res, next) => {
       throw error;
     }
     const { email, password } = req.body;
-    const user = await Users.findOne({ email });
+    const user = await User.findOne({ email });
     if (!user) {
       throw new Unauthorized('Email or password is wrong');
     }
@@ -26,7 +26,7 @@ const login = async (req, res, next) => {
     const payload = {
       id: user._id,
     };
-    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '1h' });
+    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '2h' });
 
     res.json({
       status: 'sucess',

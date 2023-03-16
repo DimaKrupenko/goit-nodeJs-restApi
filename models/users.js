@@ -32,9 +32,9 @@ const joiSchema = Joi.object({
   subscription: Joi.string(),
 });
 
-const Users = model('user', usersSchema);
+const User = model('user', usersSchema);
 
 module.exports = {
-  Users,
+  User,
   joiSchema,
 };
