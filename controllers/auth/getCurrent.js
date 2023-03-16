@@ -1,6 +1,6 @@
 // const { User } = require('../../models/users');
 
-const getcurrent = async (res, req, next) => {
+const getcurrent = async (req, res, next) => {
   try {
     const { email, subscription } = req.user;
     res.json({
