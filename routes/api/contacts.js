@@ -6,9 +6,9 @@ const { auth } = require('../../middlewares/index');
 
 const { contacts: ctrl } = require('../../controllers/index');
 
-router.get('/', ctrl.getAll);
+router.get('/', auth, ctrl.getAll);
 
-router.get('/:contactId', ctrl.getById);
+router.get('/:contactId', auth, ctrl.getById);
 
 router.post('/', auth, ctrl.add);
 

@@ -9,5 +9,6 @@ const { auth: ctrl } = require('../../controllers/index');
 router.post('/register', ctrl.register);
 router.post('/login', ctrl.login);
 router.get('/current', auth, ctrl.getCurrent);
+router.get('/logout', auth, ctrl.logout);
 
 module.exports = router;
