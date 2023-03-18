@@ -9,7 +9,7 @@ const updateSubscriptionUser = async (req, res, next) => {
   try {
     const { error } = joiSchema.validate(req.body);
     if (error) {
-      const error = new Error('missing required name field');
+      const error = new Error('field filled out incorrectly');
       error.status = 400;
       throw error;
     }
