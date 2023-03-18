@@ -1,10 +1,5 @@
 const { Contacts } = require('../../models/index');
-
-const Joi = require('joi');
-
-const joiSchema = Joi.object({
-  favorite: Joi.boolean().required(),
-});
+const { joiSchema } = require('../../models/contacts');
 
 const updateStatusContact = async (req, res, next) => {
   try {
@@ -19,9 +14,7 @@ const updateStatusContact = async (req, res, next) => {
     const result = await Contacts.findByIdAndUpdate(
       contactId,
       { favorite },
-      {
-        new: true,
-      }
+      { new: true }
     );
     if (!result) {
       const error = new Error('Not found');
@@ -31,7 +24,7 @@ const updateStatusContact = async (req, res, next) => {
     res.json({
       status: 'success',
       code: 201,
-      message: 'missing fields',
+      message: 'fields updated',
       data: {
         result,
       },

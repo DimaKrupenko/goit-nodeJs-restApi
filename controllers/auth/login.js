@@ -1,4 +1,4 @@
-const { User } = require('../../models/users');
+const { User } = require('../../models/index');
 const { joiSchema } = require('../../models/users');
 const { Unauthorized } = require('http-errors');
 const bcrypt = require('bcryptjs');
