@@ -13,6 +13,7 @@ const getById = async (req, res, next) => {
           contact,
         },
       });
+      return;
     }
     res.status(404).json({
       status: 'error',
