@@ -6,14 +6,13 @@ const getById = async (req, res, next) => {
     const contact = await Contacts.findById(contactId);
     console.log(contact);
     if (contact) {
-      res.json({
+      return res.json({
         status: 'success',
         code: 200,
         data: {
           contact,
         },
       });
-      return;
     }
     res.status(404).json({
       status: 'error',
