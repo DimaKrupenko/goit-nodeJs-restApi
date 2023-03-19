@@ -3,7 +3,7 @@ const { User } = require('../../models/index');
 const logout = async (req, res, next) => {
   try {
     const { _id } = req.user;
-    User.findByIdAndUpdate(_id, { token: null });
+    await User.findByIdAndUpdate(_id, { token: null });
     res.status(204).json();
   } catch (error) {
     next(error);
