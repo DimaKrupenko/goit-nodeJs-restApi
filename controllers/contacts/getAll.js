@@ -9,16 +9,6 @@ const getAll = async (req, res, next) => {
       skip,
       limit: Number(limit),
     }).populate('owner', '_id email subscription');
-    // if (favorite) {
-    //   const result = await Contacts.find({ favorite });
-    //   return res.json({
-    //     status: 'success',
-    //     code: 200,
-    //     data: {
-    //       result: result,
-    //     },
-    //   });
-    // }
     res.json({
       status: 'success',
       code: 200,
