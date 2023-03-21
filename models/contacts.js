@@ -6,6 +6,7 @@ const joiSchema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().required(),
   phone: Joi.number().required(),
+  favorite: Joi.boolean().default(false),
 });
 
 const contactsSchema = new Schema(
@@ -25,6 +26,11 @@ const contactsSchema = new Schema(
     favorite: {
       type: Boolean,
       default: false,
+    },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+      required: true,
     },
   },
   { versionKey: false, timestamps: true }

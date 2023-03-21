@@ -1,14 +1,6 @@
 const { Contacts } = require('../../models/index');
 const { joiSchema } = require('../../models/contacts');
 
-// const Joi = require('joi');
-
-// const joiSchema = Joi.object({
-//   name: Joi.string().required(),
-//   email: Joi.string().required(),
-//   phone: Joi.number().required(),
-// });
-
 const updateById = async (req, res, next) => {
   try {
     const { error } = joiSchema.validate(req.body);
@@ -28,7 +20,7 @@ const updateById = async (req, res, next) => {
     res.json({
       status: 'success',
       code: 201,
-      message: 'missing fields',
+      message: 'fields update',
       data: {
         result,
       },
