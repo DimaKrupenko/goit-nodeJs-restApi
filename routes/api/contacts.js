@@ -2,9 +2,9 @@ const express = require('express');
 
 const router = express.Router();
 
-const { auth } = require('../../middlewares/index');
+const { auth } = require('../../middlewares');
 
-const { contacts: ctrl } = require('../../controllers/index');
+const { contacts: ctrl } = require('../../controllers');
 
 router.get('/', auth, ctrl.getAll);
 
