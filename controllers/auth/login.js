@@ -14,7 +14,7 @@ const login = async (req, res, next) => {
       error.status = 400;
       throw error;
     }
-    const { email, password } = req.body;
+    const { email, password, subscription } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
       throw new Unauthorized('Email or password is wrong');
@@ -33,6 +33,10 @@ const login = async (req, res, next) => {
       code: 200,
       data: {
         token,
+        user: {
+          email,
+          subscription,
+        },
       },
     });
   } catch (error) {
