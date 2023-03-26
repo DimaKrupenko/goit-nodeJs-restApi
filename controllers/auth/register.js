@@ -2,6 +2,7 @@ const { User } = require('../../models/index');
 const { Conflict } = require('http-errors');
 const { joiSchema } = require('../../models/users');
 const bcrypt = require('bcryptjs');
+const gravatar = require('gravatar');
 
 const register = async (req, res, next) => {
   try {
@@ -17,11 +18,14 @@ const register = async (req, res, next) => {
     if (user) {
       throw new Conflict('Email in use');
     }
+
+    const avatarURL = gravatar.url(email);
     const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
     const result = await User.create({
       email,
       password: hashPassword,
       subscription,
+      avatarURL,
     });
     console.log(result);
 
@@ -32,6 +36,7 @@ const register = async (req, res, next) => {
         user: {
           email,
           subscription,
+          avatarURL,
         },
       },
     });
