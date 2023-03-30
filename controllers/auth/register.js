@@ -1,8 +1,10 @@
 const { User } = require('../../models/index');
 const { Conflict } = require('http-errors');
+const { v4 } = require('uuid');
 const { joiSchema } = require('../../models/users');
 const bcrypt = require('bcryptjs');
 const gravatar = require('gravatar');
+const nodemailer = require('nodemailer');
 
 const register = async (req, res, next) => {
   try {
@@ -19,6 +21,8 @@ const register = async (req, res, next) => {
       throw new Conflict('Email in use');
     }
 
+    const verificationToken = v4();
+
     const avatarURL = gravatar.url(email, { d: 'identicon' });
     const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
     const result = await User.create({
@@ -26,8 +30,27 @@ const register = async (req, res, next) => {
       password: hashPassword,
       subscription,
       avatarURL,
+      verificationToken,
     });
     console.log(result);
+
+    const emailTransport = nodemailer.createTransport({
+      host: process.env.EMAIL_HOST,
+      port: process.env.EMAIL_PORT,
+      auth: {
+        user: process.env.EMAIL_USERNAME,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
+
+    const emailConfig = {
+      from: 'Contacts App Admin <admin.example.com>',
+      to: email,
+      subject: 'Подтверждение email',
+      html: `<a target='_blanck' href='http://localhost:3000/api/users/verify/${verificationToken}'>Подтвердить email</a>`,
+    };
+
+    await emailTransport.sendMail(emailConfig);
 
     res.status(201).json({
       status: 'success',
@@ -37,6 +60,7 @@ const register = async (req, res, next) => {
           email,
           subscription,
           avatarURL,
+          verificationToken,
         },
       },
     });
