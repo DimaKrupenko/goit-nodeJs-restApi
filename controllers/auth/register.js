@@ -50,7 +50,10 @@ const register = async (req, res, next) => {
       html: `<a target='_blanck' href='http://localhost:3000/api/users/verify/${verificationToken}'>Подтвердить email</a>`,
     };
 
-    await emailTransport.sendMail(emailConfig);
+    await emailTransport
+      .sendMail(emailConfig)
+      .then(() => console.log('Email send success'))
+      .catch(error => console.log(error));
 
     res.status(201).json({
       status: 'success',

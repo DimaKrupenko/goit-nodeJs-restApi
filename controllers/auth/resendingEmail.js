@@ -33,8 +33,11 @@ const resendingEmail = async (req, res, next) => {
       html: `<a target='_blanck' href='http://localhost:3000/api/users/verify/${user.verificationToken}'>Подтвердить email</a>`,
     };
 
-    await emailTransport.sendMail(emailConfig);
-    await console.log(user.verificationToken);
+    await emailTransport
+      .sendMail(emailConfig)
+      .then(() => console.log('Email send success'))
+      .catch(error => console.log(error));
+
     res.json({
       message: 'Verification email sent',
     });
